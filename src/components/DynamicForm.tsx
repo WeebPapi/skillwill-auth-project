@@ -39,7 +39,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ fields, onSubmit }) => {
   }
 
   const handleChange = (name: string, value: string | File | WorkingDay[]) => {
-    setFormData((prev) => ({ ...prev, [name]: value }))
+    setFormData((prev) => ({ ...prev, role: user.role, [name]: value }))
   }
 
   return (

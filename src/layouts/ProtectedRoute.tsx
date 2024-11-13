@@ -5,7 +5,7 @@ import { RootState } from "../store"
 
 const ProtectedRoute: React.FC = () => {
   const auth = useSelector((state: RootState) => state.auth.user)
-  if (!auth) return <Navigate to="/auth" />
+  if (!auth.name) return <Navigate to="/auth" />
   return <Outlet />
 }
 
