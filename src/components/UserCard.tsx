@@ -14,7 +14,6 @@ const UserCard: React.FC<UserObject> = ({ name, surname, phone, role }) => {
         flexDirection: "column",
         justifyContent: "space-between",
         alignItems: "start",
-        marginRight: "2rem",
       }}
     >
       <Typography variant="body1" fontWeight={700} fontSize={28}>{`${name} ${
