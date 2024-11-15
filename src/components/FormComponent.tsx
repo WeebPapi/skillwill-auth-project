@@ -4,21 +4,32 @@ import { TextFieldProps } from "../interfaces/textfield.interface"
 import { IFormData } from "../interfaces/formdata.interface"
 import DynamicWorkingDays from "./DynamicWorkingDays"
 import { WorkingDay } from "../interfaces/workingday.interface"
-
+import { userContext } from "./UserCard"
+import { useContext } from "react"
+import { ITask } from "../interfaces/task.interface"
 interface DynamicFormComponentProps {
   fields: TextFieldProps[]
   onSubmit: (formData: IFormData) => void
+  tasks: ITask[]
 }
 
 const FormComponent: React.FC<DynamicFormComponentProps> = ({
   fields,
   onSubmit,
+  tasks,
 }) => {
-  const [formData, setFormData] = useState<IFormData>({})
+  const { id } = useContext(userContext)
+  const [formData, setFormData] = useState<IFormData>({ _uuid: id, tasks: [] })
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    onSubmit(formData)
+    const task: ITask = {
+      taskName: (formData.taskName as string) || "",
+      taskDesc: (formData.taskDescription as string) || "",
+      deadline: (formData.deadline as string) || "",
+      importance: (formData.importance as string) || "",
+    }
+    onSubmit({ ...formData, tasks: [...tasks, task] })
   }
 
   const handleChange = (name: string, value: string | File | WorkingDay[]) => {
@@ -43,7 +54,10 @@ const FormComponent: React.FC<DynamicFormComponentProps> = ({
           <TextField
             key={field.name}
             {...field}
-            onChange={(e) => handleChange(field.name, e.target.value)}
+            value={formData[field.name] || ""}
+            onChange={(e) => {
+              handleChange(field.name, e.target.value)
+            }}
           />
         )
       })}

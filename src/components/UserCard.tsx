@@ -1,8 +1,10 @@
 import React from "react"
 import { UserObject } from "../interfaces/userobject.interface"
 import { Box, Typography } from "@mui/material"
+import CourierAddTask from "./CourierAddTask"
 
-const UserCard: React.FC<UserObject> = ({ name, surname, phone, role }) => {
+export const userContext = React.createContext({ id: "" })
+const UserCard: React.FC<UserObject> = ({ name, surname, phone, role, id }) => {
   return (
     <Box
       sx={{
@@ -25,6 +27,11 @@ const UserCard: React.FC<UserObject> = ({ name, surname, phone, role }) => {
       <Typography variant="body2" fontSize={14} sx={{ width: "max-content" }}>
         Phone Number: {phone}
       </Typography>
+      {role === "Courier" ? (
+        <userContext.Provider value={{ id }}>
+          <CourierAddTask />
+        </userContext.Provider>
+      ) : null}
     </Box>
   )
 }

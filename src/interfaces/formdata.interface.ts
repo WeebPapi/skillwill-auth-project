@@ -1,3 +1,4 @@
+import { ITask } from "./task.interface"
 import { WorkingDay } from "./workingday.interface"
 
 export interface IFormData {
@@ -14,5 +15,7 @@ export interface IFormData {
       }>
     | WorkingDay[]
     | undefined
+    | ITask[]
   workingDays?: WorkingDay[]
+  tasks?: ITask[]
 }

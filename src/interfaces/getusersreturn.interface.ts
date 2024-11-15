@@ -1,3 +1,5 @@
+import { ITask } from "./task.interface"
+
 export interface getUsersReturn {
   _created: number
   _data_type: string
@@ -13,4 +15,5 @@ export interface getUsersReturn {
   phone: string
   role: "Admin" | "User" | "Courier"
   surname: string
+  tasks?: ITask[]
 }
